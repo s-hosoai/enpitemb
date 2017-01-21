@@ -30,6 +30,8 @@ SDFileSystem sdfs(P8_5, P8_6, P8_3, P8_4, "sdroot"); // mosi miso sclk cs name
 SDFileSystem sdfs(P4_6, P4_7, P4_4, P4_5, "sdroot"); // mosi miso sclk cs name
 #endif
 
+#include "Milkcocoa.h"
+
 static char i2c_setting_str_buf[I2C_SETTING_STR_BUF_SIZE];
 
 static void TerminalWrite(Arguments* arg, Reply* r) {

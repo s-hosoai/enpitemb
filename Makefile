@@ -41,6 +41,7 @@ include $(MBED_LIB_DIR)/R_BSP/R_BSP.mk
 include $(MBED_LIB_DIR)/SDFileSystem/SDFileSystem.mk
 include $(MBED_LIB_DIR)/TextLCD_SB1602E/TextLCD_SB1602E.mk
 include $(MBED_LIB_DIR)/common/Makefile.cmn
+include $(MBED_LIB_DIR)/Milkcocoa/Milkcocoa.mk
 include ../Makefile.mbd
 
 #
