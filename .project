@@ -136,6 +136,11 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
+			<name>mbed-lib/GR-PEACH_Camera</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
 			<name>mbed-lib/GR-PEACH_WlanBP3595STA</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
@@ -1359,6 +1364,31 @@
 			<name>mbed-lib/FATFileSystem/MemFileSystem.hx</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/mbed-lib/FATFileSystem/MemFileSystem.hx</locationURI>
+		</link>
+		<link>
+			<name>mbed-lib/GR-PEACH_Camera/GR-PEACH_Camera.mk</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mbed-lib/GR-PEACH_Camera/GR-PEACH_Camera.mk</locationURI>
+		</link>
+		<link>
+			<name>mbed-lib/GR-PEACH_Camera/GR_PEACH_Camera.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mbed-lib/GR-PEACH_Camera/GR_PEACH_Camera.cpp</locationURI>
+		</link>
+		<link>
+			<name>mbed-lib/GR-PEACH_Camera/GR_PEACH_Camera.d</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mbed-lib/GR-PEACH_Camera/GR_PEACH_Camera.d</locationURI>
+		</link>
+		<link>
+			<name>mbed-lib/GR-PEACH_Camera/GR_PEACH_Camera.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mbed-lib/GR-PEACH_Camera/GR_PEACH_Camera.h</locationURI>
+		</link>
+		<link>
+			<name>mbed-lib/GR-PEACH_Camera/GR_PEACH_Camera.o</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mbed-lib/GR-PEACH_Camera/GR_PEACH_Camera.o</locationURI>
 		</link>
 		<link>
 			<name>mbed-lib/GR-PEACH_WlanBP3595STA/GR-PEACH_WlanBP3595</name>
