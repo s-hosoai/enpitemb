@@ -477,30 +477,18 @@ const unsigned_t TOPPERS_cfg_static_api_29 = 29;
 
 #line 21 "app.cfg"
 const unsigned_t TOPPERS_cfg_valueof_tskatr_29 = ( unsigned_t )( TA_ACT ); const signed_t TOPPERS_cfg_valueof_itskpri_29 = ( signed_t )( TASKPRI_MAIN ); const unsigned_t TOPPERS_cfg_valueof_stksz_29 = ( unsigned_t )( TASKSTACKSIZE*16*2 ); 
-#line 22 "app.cfg"
+#line 23 "app.cfg"
 const unsigned_t TOPPERS_cfg_static_api_30 = 30;
-#define TASKID_TIMELAPSE	(<>)
-
-#line 22 "app.cfg"
-const unsigned_t TOPPERS_cfg_valueof_tskatr_30 = ( unsigned_t )( TA_ACT ); const signed_t TOPPERS_cfg_valueof_itskpri_30 = ( signed_t )( TASKPRI_TIMELAPSE ); const unsigned_t TOPPERS_cfg_valueof_stksz_30 = ( unsigned_t )( TASKSTACKSIZE*4 ); 
-#line 23 "app.cfg"
-const unsigned_t TOPPERS_cfg_static_api_31 = 31;
-#define TASKID_CHARLCD	(<>)
-
-#line 23 "app.cfg"
-const unsigned_t TOPPERS_cfg_valueof_tskatr_31 = ( unsigned_t )( TA_ACT ); const signed_t TOPPERS_cfg_valueof_itskpri_31 = ( signed_t )( TASKPRI_CHARLCD ); const unsigned_t TOPPERS_cfg_valueof_stksz_31 = ( unsigned_t )( TASKSTACKSIZE*2 ); 
-#line 25 "app.cfg"
-const unsigned_t TOPPERS_cfg_static_api_32 = 32;
 #define SEMID_SNAPSHOT	(<>)
 
+#line 23 "app.cfg"
+const unsigned_t TOPPERS_cfg_valueof_sematr_30 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_30 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_30 = ( unsigned_t )( 1 ); 
 #line 25 "app.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_32 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_32 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_32 = ( unsigned_t )( 1 ); 
-#line 27 "app.cfg"
-const unsigned_t TOPPERS_cfg_static_api_33 = 33;
+const unsigned_t TOPPERS_cfg_static_api_31 = 31;
 #define DTQID_CHARLCD	(<>)
 
+#line 25 "app.cfg"
+const unsigned_t TOPPERS_cfg_valueof_dtqatr_31 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_dtqcnt_31 = ( unsigned_t )( 0 ); 
 #line 27 "app.cfg"
-const unsigned_t TOPPERS_cfg_valueof_dtqatr_33 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_dtqcnt_33 = ( unsigned_t )( 0 ); 
-#line 29 "app.cfg"
-const unsigned_t TOPPERS_cfg_static_api_34 = 34;
-const unsigned_t TOPPERS_cfg_valueof_kmmsz_34 = ( unsigned_t )( KMM_SIZE ); 
+const unsigned_t TOPPERS_cfg_static_api_32 = 32;
+const unsigned_t TOPPERS_cfg_valueof_kmmsz_32 = ( unsigned_t )( KMM_SIZE ); 

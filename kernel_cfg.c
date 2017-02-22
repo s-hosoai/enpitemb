@@ -24,7 +24,7 @@
  *  Task Management Functions
  */
 
-#define TNUM_STSKID	5
+#define TNUM_STSKID	3
 
 const ID _kernel_tmax_tskid = (TMIN_TSKID + TNUM_TSKID - 1);
 const ID _kernel_tmax_stskid = (TMIN_TSKID + TNUM_STSKID - 1);
@@ -32,15 +32,11 @@ const ID _kernel_tmax_stskid = (TMIN_TSKID + TNUM_STSKID - 1);
 static STK_T _kernel_stack_LOGTASK[COUNT_STK_T(LOGTASK_STACK_SIZE)];
 static STK_T _kernel_stack_INIT_MAIN_TASK[COUNT_STK_T(INIT_MAIN_TASK_STACK_SIZE)];
 static STK_T _kernel_stack_TASKID_MAIN[COUNT_STK_T(TASKSTACKSIZE*16*2)];
-static STK_T _kernel_stack_TASKID_TIMELAPSE[COUNT_STK_T(TASKSTACKSIZE*4)];
-static STK_T _kernel_stack_TASKID_CHARLCD[COUNT_STK_T(TASKSTACKSIZE*2)];
 
 const TINIB _kernel_tinib_table[TNUM_STSKID] = {
 	{ (TA_ACT), (intptr_t)(LOGTASK_PORTID), ((TASK)(logtask_main)), INT_PRIORITY(LOGTASK_PRIORITY), ROUND_STK_T(LOGTASK_STACK_SIZE), _kernel_stack_LOGTASK, (TA_NULL), (NULL) },
 	{ (TA_ACT), (intptr_t)(0), ((TASK)(init_main_task)), INT_PRIORITY(INIT_MAIN_TASK_PRI), ROUND_STK_T(INIT_MAIN_TASK_STACK_SIZE), _kernel_stack_INIT_MAIN_TASK, (TA_NULL), (NULL) },
-	{ (TA_ACT), (intptr_t)(0), ((TASK)(task_main)), INT_PRIORITY(TASKPRI_MAIN), ROUND_STK_T(TASKSTACKSIZE*16*2), _kernel_stack_TASKID_MAIN, (TA_NULL), (NULL) },
-	{ (TA_ACT), (intptr_t)(0), ((TASK)(task_timelapse)), INT_PRIORITY(TASKPRI_TIMELAPSE), ROUND_STK_T(TASKSTACKSIZE*4), _kernel_stack_TASKID_TIMELAPSE, (TA_NULL), (NULL) },
-	{ (TA_ACT), (intptr_t)(0), ((TASK)(task_charlcd)), INT_PRIORITY(TASKPRI_CHARLCD), ROUND_STK_T(TASKSTACKSIZE*2), _kernel_stack_TASKID_CHARLCD, (TA_NULL), (NULL) }
+	{ (TA_ACT), (intptr_t)(0), ((TASK)(task_main)), INT_PRIORITY(TASKPRI_MAIN), ROUND_STK_T(TASKSTACKSIZE*16*2), _kernel_stack_TASKID_MAIN, (TA_NULL), (NULL) }
 };
 
 TINIB _kernel_atinib_table[210];
@@ -48,7 +44,7 @@ TINIB _kernel_atinib_table[210];
 TCB _kernel_tcb_table[TNUM_TSKID];
 
 const ID _kernel_torder_table[TNUM_STSKID] = {
-	LOGTASK, INIT_MAIN_TASK, TASKID_MAIN, TASKID_TIMELAPSE, TASKID_CHARLCD
+	LOGTASK, INIT_MAIN_TASK, TASKID_MAIN
 };
 
 /*

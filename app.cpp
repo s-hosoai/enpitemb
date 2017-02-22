@@ -3,325 +3,139 @@
 #include "app.h"
 
 #include "mbed.h"
-#include "HTTPServer.h"
-#include "mbed_rpc.h"
-#include "SDFileSystem.h"
-#include "i2c_setting.h"
-#include "TextLCD_SB1602E.h"
-
-#include "GR_PEACH_Camera.h"
-GR_PEACH_Camera camera;
 
 #include "app_config.h"
 
-#if (NETWORK_TYPE == 0)
-  #include "EthernetInterface.h"
-  EthernetInterface network;
-#elif (NETWORK_TYPE == 1)
-  #include "GR_PEACH_WlanBP3595.h"
-  GR_PEACH_WlanBP3595 network;
-  DigitalOut usb1en(P3_8);
-#else
-  #error NETWORK_TYPE error
-#endif /* NETWORK_TYPE */
-#if (SD_SPICH == 2)
-SDFileSystem sdfs(P8_5, P8_6, P8_3, P8_4, "sdroot"); // mosi miso sclk cs name
-#elif (SD_SPICH == 1)
-SDFileSystem sdfs(P4_6, P4_7, P4_4, P4_5, "sdroot"); // mosi miso sclk cs name
-#endif
-
 #include "Milkcocoa.h"
 
-static char i2c_setting_str_buf[I2C_SETTING_STR_BUF_SIZE];
+#define WLAN_SSID               ("Xperia Z5 Compact_f316")                // SSID
+#define WLAN_PSK                ("miyu7283")                 // PSK(Pre-Shared Key)
+#define MILKCOCOA_APP_ID      "readiy2t3sw5"
+#define MILKCOCOA_DATASTORE   "mbed"
+#define MILKCOCOA_SERVERPORT  1883
+const char MQTT_SERVER[]  = MILKCOCOA_APP_ID ".mlkcca.com";
+const char MQTT_CLIENTID[] = __TIME__ MILKCOCOA_APP_ID;
+const int MAX_SENSOR_VALUE = 1024;
+const int IR_THRESHOLD = 200;
 
-static void TerminalWrite(Arguments* arg, Reply* r) {
-    if ((arg != NULL) && (r != NULL)) {
-        for (int i = 0; i < arg->argc; i++) {
-            if (arg->argv[i] != NULL) {
-                printf("%s", arg->argv[i]);
-            }
-        }
-        printf("\n");
-        r->putData<const char*>("ok");
-    }
-}
-
-static void SetI2CfromWeb(Arguments* arg, Reply* r) {
-    int result = 0;
-
-    if (arg != NULL) {
-        if (arg->argc >= 2) {
-            if ((arg->argv[0] != NULL) && (arg->argv[1] != NULL)) {
-                sprintf(i2c_setting_str_buf, "%s,%s", arg->argv[0], arg->argv[1]);
-                result = 1;
-            }
-        } else if (arg->argc == 1) {
-            if (arg->argv[0] != NULL) {
-                sprintf(i2c_setting_str_buf, "%s", arg->argv[0]);
-                result = 1;
-            }
-        } else {
-            /* Do nothing */
-        }
-        /* command analysis and execute */
-        if (result != 0) {
-            if (i2c_setting_exe(i2c_setting_str_buf) != false) {
-                r->putData<const char*>(i2c_setting_str_buf);
-            }
-        }
-    }
-}
+extern void onpush(MQTT::MessageData& md);
+Serial pc(USBTX, USBRX);
 
 DigitalOut dir_left(D8);
 DigitalOut dir_right(D7);
 PwmOut pwm_left(P5_0);      //TIOC0
 PwmOut pwm_right(P8_14);    //TIOC2
-PwmOut pwm_pan(P5_3);       //TIOC3
-PwmOut pwm_tilt(P3_8);      //TIOC4
-static double steer = 0, speed = 0;
+static DigitalInOut ir_pins[] =
+		{ DigitalInOut(D5), DigitalInOut(A2), DigitalInOut(A0), DigitalInOut(
+				D11), DigitalInOut(A3), DigitalInOut(D4) };
+static DigitalOut emitter(A4);
+static Timer timer;
+typedef struct IrBitField_S {
+	int left :1;
+	int center :1;
+	int right :1;
+} IrBitField_T;
 
-void TankSpeed(Arguments* arg, Reply* r) {
-	if((arg != NULL)
-	&& (arg->argc == 1)) {
+static int speed = 80;
+static int steer = 0;
 
-		sscanf(arg->argv[0], "%lf", &speed);
+static int constrain(int input, int min, int max) {
+	if (input < min) {
+		return min;
+	} else if (max < input) {
+		return max;
+	} else {
+		return input;
+	}
+}
 
-		if(speed < 0) {
-			speed *= -1;
-			dir_left = 1;
-			dir_right = 1;
-		}else{
-			dir_left = 0;
-			dir_right = 0;
+void driveTank(int left, int right) {
+	int _lmotor = constrain(left, -255, 255);
+	int _rmotor = constrain(right, -255, 255);
+
+	if (_lmotor < 0) {
+		dir_left = 1;
+		_lmotor = -_lmotor;
+	} else {
+		dir_left = 0;
+	}
+	if (_rmotor < 0) {
+		dir_right = 1;
+		_rmotor = -_rmotor;
+	} else {
+		dir_right = 0;
+	}
+	pwm_left.write(_lmotor / 255.0f);
+	pwm_right.write(_rmotor / 255.0f);
+}
+
+void readAnalogIrValue(unsigned int *values) {
+	int i;
+	emitter = 1;
+	wait_us(200);
+	for (i = 0; i < 6; i++) {
+		values[i] = MAX_SENSOR_VALUE - 1;
+		ir_pins[i].output();
+		ir_pins[i] = 1;
+	}
+	for (i = 0; i < 6; i++) {
+		ir_pins[i].input();
+		ir_pins[i] = 0;
+	}
+	timer.start();
+	timer.reset();
+	unsigned int time = 0;
+	while (timer.read_us() < MAX_SENSOR_VALUE) {
+		time = timer.read_us();
+		for (i = 0; i < 6; i++) {
+			if (ir_pins[i] == 0 && time < values[i]) {
+				values[i] = time;
+			}
 		}
-		pwm_left.write(speed * (1 + steer));
-		pwm_right.write(speed * (1 - steer));
 	}
-	return;
+	timer.stop();
+	emitter = 0;
+	wait_us(200);
 }
 
-void TankSteer(Arguments* arg, Reply* r) {
-	if((arg != NULL)
-	&& (arg->argc == 1)) {
-		sscanf(arg->argv[0], "%lf", &steer);
-
-		pwm_left.write(speed * (1 + steer));
-		pwm_right.write(speed * (1 - steer));
-	}
-	return;
+void readIr(IrBitField_T &irbits) {
+	unsigned int irvalues[6];
+	readAnalogIrValue(irvalues);
+	irbits.right = (irvalues[0] > IR_THRESHOLD);
+	irbits.center = (irvalues[3] > IR_THRESHOLD);
+	irbits.left = (irvalues[5] > IR_THRESHOLD);
 }
 
-void CamPan(Arguments* arg, Reply* r) {
-	if((arg != NULL)
-	&& (arg->argc == 1)) {
-		double val;
-
-		sscanf(arg->argv[0], "%lf", &val);
-		pwm_pan.write(0.08 - val * 0.04);
-	}
-	return;
-}
-
-void CamTilt(Arguments* arg, Reply* r) {
-	if((arg != NULL)
-	&& (arg->argc == 1)) {
-		double val;
-
-		sscanf(arg->argv[0], "%lf", &val);
-		pwm_tilt.write(0.08 + val * 0.04);
-	}
-	return;
-}
-
-static char printlcd[2][9];
-
-void SaveJpeg(Arguments* arg, Reply* r) {
-	static int count = 0;
-	int size;
-	const char *p_data;
-	char filename[128];
-	FILE * fp;
-
-	sprintf(filename, "/sdroot/DCIM/100PEACH/CAM%05d.jpg", count);
-
-	strcpy(printlcd[0], "still");
-	sprintf(printlcd[1],"CAM%05d", count);
-	psnd_dtq(DTQID_CHARLCD, (intptr_t)1|2);
-
-	size = snapshot_req(&p_data);
-	fp = fopen(filename, "w");
-	if(fp){
-		fwrite(p_data, size, 1, fp);
-		fclose(fp);
-		printf("save_jpeg[%s}\r\n", filename);
-	}
-	else
-	{
-		printf("save_jpeg fopen error\r\n");
-	}
-	count++;
-	return;
-}
-
-void TimeLapse(Arguments* arg, Reply* r) {
-	wup_tsk(TASKID_TIMELAPSE);
-	return;
+void onpush(MQTT::MessageData& md)
+{
+	pc.printf("onpush\n\r");
+    MQTT::Message &message = md.message;
+    DataElement de = DataElement((char*)message.payload);
+	int v = de.getInt("v");
 }
 
 void task_main(intptr_t exinf) {
-
-	DigitalOut led_yellow(D13);
-	led_yellow = 1;
-
-	dly_tsk(200);
-    printf("********* PROGRAM START ***********\r\n");
-
-	pwm_left.period_us(50);
-	pwm_left.write(0.0f);
-	pwm_right.period_us(50);
-	pwm_right.write(0.0f);
-
-	pwm_pan.period_ms(20);
-	pwm_pan.write(0.075f);
-	dly_tsk(200);
-	pwm_tilt.period_ms(20);
-	pwm_tilt.write(0.075f);
-	dly_tsk(200);
-
-    /* Please enable this line when performing the setting from the Terminal side. */
-//    Thread thread(SetI2CfromTerm, NULL, osPriorityBelowNormal, DEFAULT_STACK_SIZE);
-
-//    camera_start();     //Camera Start
-    camera.start();     //Camera Start
-
-    RPC::add_rpc_class<RpcDigitalOut>();
-    RPC::construct<RpcDigitalOut, PinName, const char*>(LED1, "led1");
-    RPC::construct<RpcDigitalOut, PinName, const char*>(LED2, "led2");
-    RPC::construct<RpcDigitalOut, PinName, const char*>(LED3, "led3");
-    RPCFunction rpcFunc(TerminalWrite, "TerminalWrite");
-    RPCFunction rpcSetI2C(SetI2CfromWeb, "SetI2CfromWeb");
-
-	RPCFunction rpcTankSteer(TankSteer, "TankSteer");
-	RPCFunction rpcTankSpeed(TankSpeed, "TankSpeed");
-	RPCFunction rpcCamPan(CamPan, "CamPan");
-	RPCFunction rpcCamTilt(CamTilt, "CamTilt");
-	RPCFunction rpcSaveJpeg(SaveJpeg, "SaveJpeg");
-	RPCFunction rpcTimeLapse(TimeLapse, "TimeLapse");
-
-#if (NETWORK_TYPE == 1)
-    //Audio Camera Shield USB1 enable for WlanBP3595
-    usb1en = 1;        //Outputs high level
-	dly_tsk(5);
-    usb1en = 0;        //Outputs low level
-	dly_tsk(5);
-#endif
-
-    printf("Network Setting up...\r\n");
-#if (USE_DHCP == 1)
-	while (network.init() != 0) {                             //for DHCP Server
-#else
-	while (network.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY) != 0) { //for Static IP Address (IPAddress, NetMasks, Gateway)
-#endif
-        printf("Network Initialize Error \r\n");
-
-		strcpy(printlcd[0], "Net Init");
-		strcpy(printlcd[1], "error ");
-		psnd_dtq(DTQID_CHARLCD, (intptr_t)(1|2));
-    }
-#if (NETWORK_TYPE == 0)
-	while (network.connect() != 0) {
-#else
-	while (network.connect(WLAN_SSID, WLAN_PSK, WLAN_SECURITY) != 0) {
-#endif
-        printf("Network Connect Error \r\n");
-
-		strcpy(printlcd[0], "Connect");
-		strcpy(printlcd[1], "error ");
-		psnd_dtq(DTQID_CHARLCD, (intptr_t)(1|2));
-    }
-    printf("MAC Address is %s\r\n", network.getMACAddress());
-    printf("IP Address is %s\r\n", network.getIPAddress());
-    printf("NetMask is %s\r\n", network.getNetworkMask());
-    printf("Gateway Address is %s\r\n", network.getGateway());
-    printf("Network Setup OK\r\n");
-
-	led_yellow = 0;
-	sprintf(printlcd[0], "%s", &(network.getIPAddress()[0]));
-	sprintf(printlcd[1], "%s", &(network.getIPAddress()[8]));
-	psnd_dtq(DTQID_CHARLCD, (intptr_t)(1|2));
-
-    SnapshotHandler::attach_req(&snapshot_req);
-    HTTPServerAddHandler<SnapshotHandler>("/camera"); //Camera
-    FSHandler::mount("/sdroot", "/");
-
-	mkdir("/sdroot/DCIM", 0777);
-	mkdir("/sdroot/DCIM/100PEACH", 0777);
-
-    HTTPServerAddHandler<FSHandler>("/");
-    HTTPServerAddHandler<RPCHandler>("/rpc");
-    HTTPServerStart(80);
-}
-
-void task_timelapse(intptr_t exinf)
-{
-	int n;
-	int size;
-	const char *p_data;
-	char filename[128];
-	FILE * fp;
-
-	while(1)
-	{
-		slp_tsk();
-
-
-		for(n = 0; n < 20; n++)
-		{
-			size = snapshot_req((const char**)&p_data);
-
-			sprintf(filename, "/sdroot/DCIM/100PEACH/LAP%05d.jpg", n);
-			fp = fopen(filename, "w");
-			if(fp){
-				fwrite(p_data, size, 1, fp);
-				fclose(fp);
-				printf("fwrite %s\r\n", filename);
-
-				strcpy(printlcd[0], "timelaps");
-				sprintf(printlcd[1],"%d/20", n);
-				psnd_dtq(DTQID_CHARLCD, (intptr_t)1|2);
-
-				dly_tsk(1000);
-			}
-			else
-			{
-				printf("time_lapse fopen error\r\n");
-				break;
-			}
+	pc.baud(9600);
+	IrBitField_T irbits;
+	while (1) {
+		readIr(irbits);
+		if (irbits.left && irbits.center && irbits.right) {
+			// on the end line. stop.
+			driveTank(0, 0);
+		} else if (irbits.left) {
+			// turn strong right
+			driveTank(-0.1 * speed, speed);
+		} else if (irbits.right) {
+			// turn strong left
+			driveTank(speed, -0.1 * speed);
+		} else if (irbits.center) {
+			// move forward
+			driveTank(speed, speed);
+		} else {
+			//turn right
+			driveTank(speed, 0.1 * speed);
 		}
+		dly_tsk(100);
 	}
 }
 
-void task_charlcd(intptr_t exinf)
-{
-	I2C					i2c( P1_3, P1_2 );	// sda, scl
-	TextLCD_SB1602E		charlcd( &i2c );
-
-	charlcd.printf(0, "%-8s\r", "CamTank");
-	charlcd.printf(1, "%8s\r", "start");
-
-	while(1)
-	{
-		unsigned int data;
-		rcv_dtq(DTQID_CHARLCD, (intptr_t*)&data);
-
-		if (data & 1)
-		{
-			charlcd.printf(0, "%-8s\r", printlcd[0]);
-		}
-
-		if (data & 2)
-		{
-			charlcd.printf(1, "%8s\r", printlcd[1]);
-		}
-	}
-}

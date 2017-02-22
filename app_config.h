@@ -11,8 +11,8 @@
 
 #define NETWORK_TYPE			(1)					/* Select  0(EthernetInterface) or 1(GR_PEACH_WlanBP3595) */
 #if (NETWORK_TYPE == 1)
-	#define WLAN_SSID			("SSIDofYourAP")	/* SSID */
-	#define WLAN_PSK			("PSKofYourAP")		/* PSK(Pre-Shared Key) */
+//	#define WLAN_SSID			("SSIDofYourAP")	/* SSID */
+//	#define WLAN_PSK			("PSKofYourAP")		/* PSK(Pre-Shared Key) */
 
 //	#define WLAN_SSID			("ERTL_GLOBAL")		/* SSID */
 //	#define WLAN_PSK			("ertl__toppers")	/* PSK(Pre-Shared Key) */
