@@ -11,17 +11,6 @@
 
 #define NETWORK_TYPE			(1)					/* Select  0(EthernetInterface) or 1(GR_PEACH_WlanBP3595) */
 #if (NETWORK_TYPE == 1)
-//	#define WLAN_SSID			("SSIDofYourAP")	/* SSID */
-//	#define WLAN_PSK			("PSKofYourAP")		/* PSK(Pre-Shared Key) */
-
-//	#define WLAN_SSID			("ERTL_GLOBAL")		/* SSID */
-//	#define WLAN_PSK			("ertl__toppers")	/* PSK(Pre-Shared Key) */
-
-//	#define WLAN_SSID			("RX501NC_0832")	/* SSID */
-//	#define WLAN_PSK			("50220988")		/* PSK(Pre-Shared Key) */
-
-//	#define WLAN_SSID			("planex-2.4-ea118c")	/* SSID */
-//	#define WLAN_PSK			("12345678")		/* PSK(Pre-Shared Key) */
 
 	#define WLAN_SECURITY		NSAPI_SECURITY_WPA2	/* NSAPI_SECURITY_NONE, NSAPI_SECURITY_WEP, NSAPI_SECURITY_WPA or NSAPI_SECURITY_WPA2 */
 #endif
@@ -41,4 +30,16 @@
 /** SD card spi channel setting **/
 
 #define SD_SPICH			(2)
+
+/** Milkcocoa settings **/
+//#define WLAN_SSID             ("jk1b201_a")                // SSID
+//#define WLAN_PSK              ("jk123456")                 // PSK(Pre-Shared Key)
+#define WLAN_SSID               ("Xperia Z5 Compact_f316")                // SSID
+#define WLAN_PSK                ("miyu7283")                 // PSK(Pre-Shared Key)
+#define MILKCOCOA_APP_ID        "postizpayuc0"
+#define MILKCOCOA_DATASTORE     "zumo"
+#define MILKCOCOA_SERVERPORT    1883
+const char MQTT_SERVER[] = MILKCOCOA_APP_ID ".mlkcca.com";
+const char MQTT_CLIENTID[] = __TIME__ MILKCOCOA_APP_ID;
+
 /*****************************/
