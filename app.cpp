@@ -11,46 +11,19 @@
 #include "GR_PEACH_Camera.h"
 #include "GR_PEACH_WlanBP3595.h"
 
-
 #define SEND_MESSAGE "HELLO WORLD\r\n"
+
 static void _wlan_inf_callback(uint8_t ucType, uint16_t usWid, uint16_t usSize,
 		uint8_t *pucData);
+static void error_wait(int ret, const char* str);
 
-class MySerial: Serial {
-public:
-	MySerial(PinName tx, PinName rx) :
-			Serial(tx, rx) {
-	}
-	int send_binary(const void* buf, int length) {
-		return write(buf, length);
-	}
-};
-
-Serial pc(USBTX, USBRX);
-GR_PEACH_Camera camera;
 GR_PEACH_WlanBP3595 wlan;
 DigitalOut red_led(LED1);
 DigitalOut green_led(LED3);
 
-void error_wait(int ret, const char* str) {
-	if (ret != 0) {
-		pc.printf(str);
-		/* error */
-		red_led = 1;
-		while (1) {
-			Thread::wait(1000);
-		}
-	}
-}
-
 void task_main(intptr_t exinf) {
 	pc.baud(115200);
-	camera.start();
 	const char *buf;
-//	unsigned int size = snapshot_req(&buf);
-//	pc.printf("ready to file receive.");
-//	dly_tsk(3000);
-//	pc.send_binary(buf, size);
 	wlan.setWlanCbFunction(_wlan_inf_callback);
 
 	pc.printf("\r\ninitializing\r\n");
@@ -83,6 +56,17 @@ static void _wlan_inf_callback(uint8_t ucType, uint16_t usWid, uint16_t usSize,
 			} else {
 				green_led = 0;
 			}
+		}
+	}
+}
+
+static void error_wait(int ret, const char* str) {
+	if (ret != 0) {
+		pc.printf(str);
+		/* error */
+		red_led = 1;
+		while (1) {
+			Thread::wait(1000);
 		}
 	}
 }
