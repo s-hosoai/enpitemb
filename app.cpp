@@ -11,53 +11,74 @@
 #include "GR_PEACH_Camera.h"
 #include "GR_PEACH_WlanBP3595.h"
 
-#define SEND_MESSAGE "HELLO WORLD\r\n"
 
+#define SEND_MESSAGE "HELLO WORLD\r\n"
+static void _wlan_inf_callback(uint8_t ucType, uint16_t usWid, uint16_t usSize,
+		uint8_t *pucData);
+
+class MySerial: Serial {
+public:
+	MySerial(PinName tx, PinName rx) :
+			Serial(tx, rx) {
+	}
+	int send_binary(const void* buf, int length) {
+		return write(buf, length);
+	}
+};
+
+Serial pc(USBTX, USBRX);
+GR_PEACH_Camera camera;
 GR_PEACH_WlanBP3595 wlan;
 DigitalOut red_led(LED1);
-DigitalOut green_led(LED2);
+DigitalOut green_led(LED3);
 
-static void _wlan_inf_callback(uint8_t ucType, uint16_t usWid, uint16_t usSize, uint8_t *pucData);
+void error_wait(int ret, const char* str) {
+	if (ret != 0) {
+		pc.printf(str);
+		/* error */
+		red_led = 1;
+		while (1) {
+			Thread::wait(1000);
+		}
+	}
+}
 
 void task_main(intptr_t exinf) {
-	GR_PEACH_WlanBP3595 wlan;
-	TCPSocketServer server;
-	TCPSocketConnection connection;
-	int ret;
-
+	pc.baud(115200);
+	camera.start();
+	const char *buf;
+//	unsigned int size = snapshot_req(&buf);
+//	pc.printf("ready to file receive.");
+//	dly_tsk(3000);
+//	pc.send_binary(buf, size);
 	wlan.setWlanCbFunction(_wlan_inf_callback);
-	ret = wlan.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY);
-	if (ret != 0) {
-		red_led = 1;
-		while (1) {
-			dly_tsk(1000);
-		}
-	}
 
+	pc.printf("\r\ninitializing\r\n");
+	int ret = wlan.init();
+	error_wait(ret, "init");
+
+	pc.printf("wlan connecting\r\n");
 	ret = wlan.connect(WLAN_SSID, WLAN_PSK);
-	if (ret != 0) {
-		red_led = 1;
-		while (1) {
-			dly_tsk(1000);
-		}
-	}
+	error_wait(ret, "wifi connect");
 
-	server.bind(SERVER_PORT);
-	server.listen();
+	TCPSocketConnection socket;
+	pc.printf("socket connecting\r\n");
+	ret = socket.connect("192.168.179.101", 9000);
+	error_wait(ret, "socket connect");
 
-	while (1) {
-		server.accept(connection);
-		printf("Connection from: %s\n", connection.get_address());
-		connection.send_all((char *) SEND_MESSAGE, sizeof(SEND_MESSAGE) - 1);
-		connection.close();
-	}
+	char* str = strdup("hello world!\r\n");
+	ret = socket.send(str, strlen(str));
+	pc.printf("%s%d\r\n", str, ret);
+
+	socket.close();
+	wlan.disconnect();
 }
 
 static void _wlan_inf_callback(uint8_t ucType, uint16_t usWid, uint16_t usSize,
 		uint8_t *pucData) {
 	if (ucType == 'I') {
-		if (usWid == 0x0005) {
-			if (pucData[0] == 0x01) {
+		if (usWid == 0x0005) {    // WID_STATUS
+			if (pucData[0] == 0x01) {     // CONNECTED
 				green_led = 1;
 			} else {
 				green_led = 0;
