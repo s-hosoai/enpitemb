@@ -2,12 +2,10 @@
 #define TOPPERS_CFG1_OUT  1
 #include "kernel/kernel_int.h"
 #include "chip_timer.h"
-#include "syssvc/syslog.h"
 #include "syssvc/banner.h"
 #include "target_syssvc.h"
 #include "chip_serial.h"
 #include "syssvc/serial.h"
-#include "syssvc/logtask.h"
 #include "common.h"
 #include "app.h"
 
@@ -345,150 +343,136 @@ const unsigned_t TOPPERS_cfg_static_api_2 = 2;
 const unsigned_t TOPPERS_cfg_valueof_inhno_2 = ( unsigned_t )( INHNO_TIMER ); const unsigned_t TOPPERS_cfg_valueof_inhatr_2 = ( unsigned_t )( TA_NULL ); 
 #line 16 "../../../asp-1.9.2-utf8/arch/arm_gcc/rza1/chip_timer.cfg"
 const unsigned_t TOPPERS_cfg_static_api_3 = 3;
-const unsigned_t TOPPERS_cfg_valueof_intno_3 = ( unsigned_t )( INTNO_TIMER ); const unsigned_t TOPPERS_cfg_valueof_intatr_3 = ( unsigned_t )( TA_ENAINT|INTATR_TIMER ); const signed_t TOPPERS_cfg_valueof_intpri_3 = ( signed_t )( INTPRI_TIMER ); /* #include "syssvc/syslog.h" */
-
-#line 10 "../../../asp-1.9.2-utf8/syssvc/syslog.cfg"
-const unsigned_t TOPPERS_cfg_static_api_4 = 4;
-const unsigned_t TOPPERS_cfg_valueof_iniatr_4 = ( unsigned_t )( TA_NULL ); /* #include "syssvc/banner.h" */
+const unsigned_t TOPPERS_cfg_valueof_intno_3 = ( unsigned_t )( INTNO_TIMER ); const unsigned_t TOPPERS_cfg_valueof_intatr_3 = ( unsigned_t )( TA_ENAINT|INTATR_TIMER ); const signed_t TOPPERS_cfg_valueof_intpri_3 = ( signed_t )( INTPRI_TIMER ); /* #include "syssvc/banner.h" */
 
 #line 10 "../../../asp-1.9.2-utf8/syssvc/banner.cfg"
-const unsigned_t TOPPERS_cfg_static_api_5 = 5;
-const unsigned_t TOPPERS_cfg_valueof_iniatr_5 = ( unsigned_t )( TA_NULL ); /* #include "target_syssvc.h" */
+const unsigned_t TOPPERS_cfg_static_api_4 = 4;
+const unsigned_t TOPPERS_cfg_valueof_iniatr_4 = ( unsigned_t )( TA_NULL ); /* #include "target_syssvc.h" */
 /* #include "chip_serial.h" */
 
 #line 11 "../../../asp-1.9.2-utf8/target/gr_peach_gcc/target_serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_6 = 6;
-const unsigned_t TOPPERS_cfg_valueof_iniatr_6 = ( unsigned_t )( TA_NULL ); 
+const unsigned_t TOPPERS_cfg_static_api_5 = 5;
+const unsigned_t TOPPERS_cfg_valueof_iniatr_5 = ( unsigned_t )( TA_NULL ); 
 #line 13 "../../../asp-1.9.2-utf8/target/gr_peach_gcc/target_serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_7 = 7;
-const unsigned_t TOPPERS_cfg_valueof_isratr_7 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_intno_7 = ( unsigned_t )( INTNO_SCIF_RXI_3 ); const signed_t TOPPERS_cfg_valueof_isrpri_7 = ( signed_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_static_api_6 = 6;
+const unsigned_t TOPPERS_cfg_valueof_isratr_6 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_intno_6 = ( unsigned_t )( INTNO_SCIF_RXI_3 ); const signed_t TOPPERS_cfg_valueof_isrpri_6 = ( signed_t )( 1 ); 
 #line 14 "../../../asp-1.9.2-utf8/target/gr_peach_gcc/target_serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_8 = 8;
-const unsigned_t TOPPERS_cfg_valueof_intno_8 = ( unsigned_t )( INTNO_SCIF_RXI_3 ); const unsigned_t TOPPERS_cfg_valueof_intatr_8 = ( unsigned_t )( INTATR_SIO_3 ); const signed_t TOPPERS_cfg_valueof_intpri_8 = ( signed_t )( INTPRI_SIO_3 ); 
+const unsigned_t TOPPERS_cfg_static_api_7 = 7;
+const unsigned_t TOPPERS_cfg_valueof_intno_7 = ( unsigned_t )( INTNO_SCIF_RXI_3 ); const unsigned_t TOPPERS_cfg_valueof_intatr_7 = ( unsigned_t )( INTATR_SIO_3 ); const signed_t TOPPERS_cfg_valueof_intpri_7 = ( signed_t )( INTPRI_SIO_3 ); 
 #line 15 "../../../asp-1.9.2-utf8/target/gr_peach_gcc/target_serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_9 = 9;
-const unsigned_t TOPPERS_cfg_valueof_isratr_9 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_intno_9 = ( unsigned_t )( INTNO_SCIF_TXI_3 ); const signed_t TOPPERS_cfg_valueof_isrpri_9 = ( signed_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_static_api_8 = 8;
+const unsigned_t TOPPERS_cfg_valueof_isratr_8 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_intno_8 = ( unsigned_t )( INTNO_SCIF_TXI_3 ); const signed_t TOPPERS_cfg_valueof_isrpri_8 = ( signed_t )( 1 ); 
 #line 16 "../../../asp-1.9.2-utf8/target/gr_peach_gcc/target_serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_10 = 10;
-const unsigned_t TOPPERS_cfg_valueof_intno_10 = ( unsigned_t )( INTNO_SCIF_TXI_3 ); const unsigned_t TOPPERS_cfg_valueof_intatr_10 = ( unsigned_t )( INTATR_SIO_3 ); const signed_t TOPPERS_cfg_valueof_intpri_10 = ( signed_t )( INTPRI_SIO_3 ); /* #include "syssvc/serial.h" */
+const unsigned_t TOPPERS_cfg_static_api_9 = 9;
+const unsigned_t TOPPERS_cfg_valueof_intno_9 = ( unsigned_t )( INTNO_SCIF_TXI_3 ); const unsigned_t TOPPERS_cfg_valueof_intatr_9 = ( unsigned_t )( INTATR_SIO_3 ); const signed_t TOPPERS_cfg_valueof_intpri_9 = ( signed_t )( INTPRI_SIO_3 ); /* #include "syssvc/serial.h" */
 
 #line 13 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_11 = 11;
-const unsigned_t TOPPERS_cfg_valueof_iniatr_11 = ( unsigned_t )( TA_NULL ); 
+const unsigned_t TOPPERS_cfg_static_api_10 = 10;
+const unsigned_t TOPPERS_cfg_valueof_iniatr_10 = ( unsigned_t )( TA_NULL ); 
 #line 15 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_12 = 12;
+const unsigned_t TOPPERS_cfg_static_api_11 = 11;
 #define SERIAL_RCV_SEM1	(<>)
 
 #line 15 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_12 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_12 = ( unsigned_t )( 0 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_12 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_11 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_11 = ( unsigned_t )( 0 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_11 = ( unsigned_t )( 1 ); 
 #line 16 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_13 = 13;
+const unsigned_t TOPPERS_cfg_static_api_12 = 12;
 #define SERIAL_SND_SEM1	(<>)
 
 #line 16 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_13 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_13 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_13 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_12 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_12 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_12 = ( unsigned_t )( 1 ); 
 #if TNUM_PORT >= 2
 
 #line 18 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_14 = 14;
+const unsigned_t TOPPERS_cfg_static_api_13 = 13;
 #define SERIAL_RCV_SEM2	(<>)
 
 #line 18 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_14 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_14 = ( unsigned_t )( 0 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_14 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_13 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_13 = ( unsigned_t )( 0 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_13 = ( unsigned_t )( 1 ); 
 #line 19 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_15 = 15;
+const unsigned_t TOPPERS_cfg_static_api_14 = 14;
 #define SERIAL_SND_SEM2	(<>)
 
 #line 19 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_15 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_15 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_15 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_14 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_14 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_14 = ( unsigned_t )( 1 ); 
 #endif 
 
 #if TNUM_PORT >= 3
 
 #line 22 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_16 = 16;
+const unsigned_t TOPPERS_cfg_static_api_15 = 15;
 #define SERIAL_RCV_SEM3	(<>)
 
 #line 22 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_16 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_16 = ( unsigned_t )( 0 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_16 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_15 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_15 = ( unsigned_t )( 0 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_15 = ( unsigned_t )( 1 ); 
 #line 23 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_17 = 17;
+const unsigned_t TOPPERS_cfg_static_api_16 = 16;
 #define SERIAL_SND_SEM3	(<>)
 
 #line 23 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_17 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_17 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_17 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_16 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_16 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_16 = ( unsigned_t )( 1 ); 
 #endif 
 
 #if TNUM_PORT >= 4
 
 #line 26 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_18 = 18;
+const unsigned_t TOPPERS_cfg_static_api_17 = 17;
 #define SERIAL_RCV_SEM4	(<>)
 
 #line 26 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_18 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_18 = ( unsigned_t )( 0 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_18 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_17 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_17 = ( unsigned_t )( 0 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_17 = ( unsigned_t )( 1 ); 
 #line 27 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_static_api_19 = 19;
+const unsigned_t TOPPERS_cfg_static_api_18 = 18;
 #define SERIAL_SND_SEM4	(<>)
 
 #line 27 "../../../asp-1.9.2-utf8/syssvc/serial.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_19 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_19 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_19 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_18 = ( unsigned_t )( TA_TPRI ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_18 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_18 = ( unsigned_t )( 1 ); 
 #endif 
-/* #include "syssvc/logtask.h" */
-
-#line 10 "../../../asp-1.9.2-utf8/syssvc/logtask.cfg"
-const unsigned_t TOPPERS_cfg_static_api_20 = 20;
-#define LOGTASK	(<>)
-
-#line 10 "../../../asp-1.9.2-utf8/syssvc/logtask.cfg"
-const unsigned_t TOPPERS_cfg_valueof_tskatr_20 = ( unsigned_t )( TA_ACT ); const signed_t TOPPERS_cfg_valueof_itskpri_20 = ( signed_t )( LOGTASK_PRIORITY ); const unsigned_t TOPPERS_cfg_valueof_stksz_20 = ( unsigned_t )( LOGTASK_STACK_SIZE ); 
-#line 12 "../../../asp-1.9.2-utf8/syssvc/logtask.cfg"
-const unsigned_t TOPPERS_cfg_static_api_21 = 21;
-const unsigned_t TOPPERS_cfg_valueof_teratr_21 = ( unsigned_t )( TA_NULL ); /* #include "common.h" */
+/* #include "common.h" */
 
 #line 2 "../../../asp-1.9.2-utf8/../mbed-lib/common/common.cfg"
-const unsigned_t TOPPERS_cfg_static_api_22 = 22;
+const unsigned_t TOPPERS_cfg_static_api_19 = 19;
 #define INIT_MAIN_TASK	(<>)
 
 #line 2 "../../../asp-1.9.2-utf8/../mbed-lib/common/common.cfg"
-const unsigned_t TOPPERS_cfg_valueof_tskatr_22 = ( unsigned_t )( TA_ACT ); const signed_t TOPPERS_cfg_valueof_itskpri_22 = ( signed_t )( INIT_MAIN_TASK_PRI ); const unsigned_t TOPPERS_cfg_valueof_stksz_22 = ( unsigned_t )( INIT_MAIN_TASK_STACK_SIZE ); 
+const unsigned_t TOPPERS_cfg_valueof_tskatr_19 = ( unsigned_t )( TA_ACT ); const signed_t TOPPERS_cfg_valueof_itskpri_19 = ( signed_t )( INIT_MAIN_TASK_PRI ); const unsigned_t TOPPERS_cfg_valueof_stksz_19 = ( unsigned_t )( INIT_MAIN_TASK_STACK_SIZE ); 
 #line 1 "../../../asp-1.9.2-utf8/../mbed-lib/EthernetInterface/EthernetInterface.cfg"
-const unsigned_t TOPPERS_cfg_static_api_23 = 23;
-const unsigned_t TOPPERS_cfg_valueof_notsk_23 = ( unsigned_t )( 10*20 ); 
+const unsigned_t TOPPERS_cfg_static_api_20 = 20;
+const unsigned_t TOPPERS_cfg_valueof_notsk_20 = ( unsigned_t )( 10*20 ); 
 #line 2 "../../../asp-1.9.2-utf8/../mbed-lib/EthernetInterface/EthernetInterface.cfg"
-const unsigned_t TOPPERS_cfg_static_api_24 = 24;
-const unsigned_t TOPPERS_cfg_valueof_nodtq_24 = ( unsigned_t )( 10*20 ); 
+const unsigned_t TOPPERS_cfg_static_api_21 = 21;
+const unsigned_t TOPPERS_cfg_valueof_nodtq_21 = ( unsigned_t )( 10*20 ); 
 #line 3 "../../../asp-1.9.2-utf8/../mbed-lib/EthernetInterface/EthernetInterface.cfg"
-const unsigned_t TOPPERS_cfg_static_api_25 = 25;
-const unsigned_t TOPPERS_cfg_valueof_nosem_25 = ( unsigned_t )( 10*20 ); 
+const unsigned_t TOPPERS_cfg_static_api_22 = 22;
+const unsigned_t TOPPERS_cfg_valueof_nosem_22 = ( unsigned_t )( 10*20 ); 
 #line 4 "../../../asp-1.9.2-utf8/../mbed-lib/EthernetInterface/EthernetInterface.cfg"
-const unsigned_t TOPPERS_cfg_static_api_26 = 26;
-const unsigned_t TOPPERS_cfg_valueof_nomtx_26 = ( unsigned_t )( 10*20 ); 
+const unsigned_t TOPPERS_cfg_static_api_23 = 23;
+const unsigned_t TOPPERS_cfg_valueof_nomtx_23 = ( unsigned_t )( 10*20 ); 
 #line 5 "../../../asp-1.9.2-utf8/../mbed-lib/EthernetInterface/EthernetInterface.cfg"
-const unsigned_t TOPPERS_cfg_static_api_27 = 27;
-const unsigned_t TOPPERS_cfg_valueof_noflg_27 = ( unsigned_t )( 10*20 ); 
+const unsigned_t TOPPERS_cfg_static_api_24 = 24;
+const unsigned_t TOPPERS_cfg_valueof_noflg_24 = ( unsigned_t )( 10*20 ); 
 #line 3 "../../../asp-1.9.2-utf8/../mbed-lib/HttpServer_snapshot/HttpServer.cfg"
-const unsigned_t TOPPERS_cfg_static_api_28 = 28;
-const unsigned_t TOPPERS_cfg_valueof_notsk_28 = ( unsigned_t )( 10 ); /* #include "app.h" */
+const unsigned_t TOPPERS_cfg_static_api_25 = 25;
+const unsigned_t TOPPERS_cfg_valueof_notsk_25 = ( unsigned_t )( 10 ); /* #include "app.h" */
 
 #line 21 "app.cfg"
-const unsigned_t TOPPERS_cfg_static_api_29 = 29;
+const unsigned_t TOPPERS_cfg_static_api_26 = 26;
 #define TASKID_MAIN	(<>)
 
 #line 21 "app.cfg"
-const unsigned_t TOPPERS_cfg_valueof_tskatr_29 = ( unsigned_t )( TA_ACT ); const signed_t TOPPERS_cfg_valueof_itskpri_29 = ( signed_t )( TASKPRI_MAIN ); const unsigned_t TOPPERS_cfg_valueof_stksz_29 = ( unsigned_t )( TASKSTACKSIZE*16*2 ); 
+const unsigned_t TOPPERS_cfg_valueof_tskatr_26 = ( unsigned_t )( TA_ACT ); const signed_t TOPPERS_cfg_valueof_itskpri_26 = ( signed_t )( TASKPRI_MAIN ); const unsigned_t TOPPERS_cfg_valueof_stksz_26 = ( unsigned_t )( TASKSTACKSIZE*16*2 ); 
 #line 23 "app.cfg"
-const unsigned_t TOPPERS_cfg_static_api_30 = 30;
+const unsigned_t TOPPERS_cfg_static_api_27 = 27;
 #define SEMID_SNAPSHOT	(<>)
 
 #line 23 "app.cfg"
-const unsigned_t TOPPERS_cfg_valueof_sematr_30 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_30 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_30 = ( unsigned_t )( 1 ); 
+const unsigned_t TOPPERS_cfg_valueof_sematr_27 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_isemcnt_27 = ( unsigned_t )( 1 ); const unsigned_t TOPPERS_cfg_valueof_maxsem_27 = ( unsigned_t )( 1 ); 
 #line 25 "app.cfg"
-const unsigned_t TOPPERS_cfg_static_api_31 = 31;
+const unsigned_t TOPPERS_cfg_static_api_28 = 28;
 #define DTQID_CHARLCD	(<>)
 
 #line 25 "app.cfg"
-const unsigned_t TOPPERS_cfg_valueof_dtqatr_31 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_dtqcnt_31 = ( unsigned_t )( 0 ); 
+const unsigned_t TOPPERS_cfg_valueof_dtqatr_28 = ( unsigned_t )( TA_NULL ); const unsigned_t TOPPERS_cfg_valueof_dtqcnt_28 = ( unsigned_t )( 0 ); 
 #line 27 "app.cfg"
-const unsigned_t TOPPERS_cfg_static_api_32 = 32;
-const unsigned_t TOPPERS_cfg_valueof_kmmsz_32 = ( unsigned_t )( KMM_SIZE ); 
+const unsigned_t TOPPERS_cfg_static_api_29 = 29;
+const unsigned_t TOPPERS_cfg_valueof_kmmsz_29 = ( unsigned_t )( KMM_SIZE ); 

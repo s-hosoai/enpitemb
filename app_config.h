@@ -2,11 +2,12 @@
 
 /** Network setting **/
 
-#define USE_DHCP				(1)					/* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP				(0)					/* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
-	#define IP_ADDRESS			("192.168.0.2")		/* IP address */
+	#define IP_ADDRESS			("192.168.179.80")		/* IP address */
 	#define SUBNET_MASK			("255.255.255.0")	/* Subnet mask */
-	#define DEFAULT_GATEWAY		("192.168.0.3")		/* Default gateway */
+	#define DEFAULT_GATEWAY		("192.168.179.1")		/* Default gateway */
+	#define SERVER_PORT 8000
 #endif
 
 #define NETWORK_TYPE			(1)					/* Select  0(EthernetInterface) or 1(GR_PEACH_WlanBP3595) */
@@ -31,11 +32,14 @@
 
 #define SD_SPICH			(2)
 
+/** WiFi settings **/
 /** Milkcocoa settings **/
-//#define WLAN_SSID             ("jk1b201_a")                // SSID
-//#define WLAN_PSK              ("jk123456")                 // PSK(Pre-Shared Key)
-#define WLAN_SSID               ("Xperia Z5 Compact_f316")                // SSID
-#define WLAN_PSK                ("miyu7283")                 // PSK(Pre-Shared Key)
+//#define WLAN_SSID             ("Xperia Z5 Compact_f316")                // SSID
+//#define WLAN_PSK              ("09876543")                 // PSK(Pre-Shared Key)
+#define WLAN_SSID             ("aterm-d202e7")                // SSID
+#define WLAN_PSK              ("156a9e5daccbc")                 // PSK(Pre-Shared Key)
+
+/** Milkcocoa settings **/
 #define MILKCOCOA_APP_ID        "postizpayuc0"
 #define MILKCOCOA_DATASTORE     "zumo"
 #define MILKCOCOA_SERVERPORT    1883
