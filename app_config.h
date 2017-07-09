@@ -4,9 +4,9 @@
 
 #define USE_DHCP				(0)					/* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
-	#define IP_ADDRESS			("192.168.179.80")		/* IP address */
+	#define IP_ADDRESS			("192.168.10.100")		/* IP address */
 	#define SUBNET_MASK			("255.255.255.0")	/* Subnet mask */
-	#define DEFAULT_GATEWAY		("192.168.179.1")		/* Default gateway */
+	#define DEFAULT_GATEWAY		("192.168.10.1")		/* Default gateway */
 	#define SERVER_PORT 8000
 #endif
 
@@ -36,8 +36,8 @@
 /** Milkcocoa settings **/
 //#define WLAN_SSID             ("Xperia Z5 Compact_f316")                // SSID
 //#define WLAN_PSK              ("09876543")                 // PSK(Pre-Shared Key)
-#define WLAN_SSID             ("aterm-d202e7")                // SSID
-#define WLAN_PSK              ("156a9e5daccbc")                 // PSK(Pre-Shared Key)
+#define WLAN_SSID             ("aterm-1c08e0-g")                // SSID
+#define WLAN_PSK              ("493689785890f")                 // PSK(Pre-Shared Key)
 
 /** Milkcocoa settings **/
 #define MILKCOCOA_APP_ID        "postizpayuc0"

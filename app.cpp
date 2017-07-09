@@ -20,6 +20,7 @@ static void error_wait(int ret, const char* str);
 GR_PEACH_WlanBP3595 wlan;
 DigitalOut red_led(LED1);
 DigitalOut green_led(LED3);
+Serial pc(USBTX, USBRX);
 
 void task_main(intptr_t exinf) {
 	pc.baud(115200);
@@ -36,7 +37,7 @@ void task_main(intptr_t exinf) {
 
 	TCPSocketConnection socket;
 	pc.printf("socket connecting\r\n");
-	ret = socket.connect("192.168.179.101", 9000);
+	ret = socket.connect("192.168.10.6", 9000);
 	error_wait(ret, "socket connect");
 
 	char* str = strdup("hello world!\r\n");
