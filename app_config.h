@@ -38,10 +38,8 @@
 
 /** WiFi settings **/
 /** Milkcocoa settings **/
-#define WLAN_SSID             ("Xperia XZ1 Compact_5b9a")                // SSID
-#define WLAN_PSK              ("09876543")                 // PSK(Pre-Shared Key)
-//#define WLAN_SSID             ("aterm-1c08e0-g")                // SSID
-//#define WLAN_PSK              ("493689785890f")                 // PSK(Pre-Shared Key)
+#define WLAN_SSID             ("aterm-1c08e0-g")                // SSID
+#define WLAN_PSK              ("493689785890f")                 // PSK(Pre-Shared Key)
 
 /** Milkcocoa settings **/
 //#define MILKCOCOA_APP_ID        "postizpayuc0"
