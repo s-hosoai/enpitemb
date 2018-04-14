@@ -7,8 +7,8 @@
 #include "app_config.h"
 
 #include "Zumo.h"
-#include "Milkcocoa.h"
-#include "GR_PEACH_Camera.h"
+//#include "Milkcocoa.h"
+//#include "GR_PEACH_Camera.h"
 #include "GR_PEACH_WlanBP3595.h"
 
 #define SEND_MESSAGE "HELLO WORLD\r\n"
@@ -26,9 +26,8 @@ void task_main(intptr_t exinf) {
 	pc.baud(115200);
 	const char *buf;
 	wlan.setWlanCbFunction(_wlan_inf_callback);
-
 	pc.printf("\r\ninitializing\r\n");
-	int ret = wlan.init();
+	int ret = wlan.init(IP_ADDRESS, SUBNET_MASK, DEFAULT_GATEWAY);
 	error_wait(ret, "init");
 
 	pc.printf("wlan connecting\r\n");
@@ -37,12 +36,13 @@ void task_main(intptr_t exinf) {
 
 	TCPSocketConnection socket;
 	pc.printf("socket connecting\r\n");
-	ret = socket.connect("192.168.10.6", 9000);
+	ret = socket.connect(SERVER_ADDRESS, SERVER_PORT);
 	error_wait(ret, "socket connect");
 
 	char* str = strdup("hello world!\r\n");
-	ret = socket.send(str, strlen(str));
-	pc.printf("%s%d\r\n", str, ret);
+	char* data = strdup("a");
+	ret = socket.send(data, 1);
+//	pc.printf("%s%d\r\n", str, ret);
 
 	socket.close();
 	wlan.disconnect();

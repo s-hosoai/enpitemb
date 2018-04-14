@@ -4,9 +4,13 @@
 
 #define USE_DHCP				(0)					/* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
-	#define IP_ADDRESS			("192.168.10.100")		/* IP address */
-	#define SUBNET_MASK			("255.255.255.0")	/* Subnet mask */
-	#define DEFAULT_GATEWAY		("192.168.10.1")		/* Default gateway */
+//	#define IP_ADDRESS			("192.168.10.100")
+//	#define SUBNET_MASK			("255.255.255.0")
+//	#define DEFAULT_GATEWAY		("192.168.10.1")
+	#define IP_ADDRESS			("192.168.43.235")
+	#define SUBNET_MASK			("255.255.255.0")
+	#define DEFAULT_GATEWAY		("192.168.43.1")
+	#define SERVER_ADDRESS 		("192.168.43.230")
 	#define SERVER_PORT 8000
 #endif
 
@@ -34,16 +38,16 @@
 
 /** WiFi settings **/
 /** Milkcocoa settings **/
-//#define WLAN_SSID             ("Xperia Z5 Compact_f316")                // SSID
-//#define WLAN_PSK              ("09876543")                 // PSK(Pre-Shared Key)
-#define WLAN_SSID             ("aterm-1c08e0-g")                // SSID
-#define WLAN_PSK              ("493689785890f")                 // PSK(Pre-Shared Key)
+#define WLAN_SSID             ("Xperia XZ1 Compact_5b9a")                // SSID
+#define WLAN_PSK              ("09876543")                 // PSK(Pre-Shared Key)
+//#define WLAN_SSID             ("aterm-1c08e0-g")                // SSID
+//#define WLAN_PSK              ("493689785890f")                 // PSK(Pre-Shared Key)
 
 /** Milkcocoa settings **/
-#define MILKCOCOA_APP_ID        "postizpayuc0"
-#define MILKCOCOA_DATASTORE     "zumo"
-#define MILKCOCOA_SERVERPORT    1883
-const char MQTT_SERVER[] = MILKCOCOA_APP_ID ".mlkcca.com";
-const char MQTT_CLIENTID[] = __TIME__ MILKCOCOA_APP_ID;
+//#define MILKCOCOA_APP_ID        "postizpayuc0"
+//#define MILKCOCOA_DATASTORE     "zumo"
+//#define MILKCOCOA_SERVERPORT    1883
+//const char MQTT_SERVER[] = MILKCOCOA_APP_ID ".mlkcca.com";
+//const char MQTT_CLIENTID[] = __TIME__ MILKCOCOA_APP_ID;
 
 /*****************************/
