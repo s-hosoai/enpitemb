@@ -1,0 +1,9 @@
+*.o
+*.elf
+*.d
+*.bin
+*.srec
+*.syms
+*.map
+*.timestamp
+*.a
