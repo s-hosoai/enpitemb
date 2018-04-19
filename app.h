@@ -16,8 +16,6 @@ extern "C" {
 #endif
 
 extern void task_main(intptr_t exinf);
-extern void task_timelapse(intptr_t exinf);
-extern void task_charlcd(intptr_t exinf);
 
 #ifdef __cplusplus
 }

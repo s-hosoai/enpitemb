@@ -1,9 +1,9 @@
 *.o
+*.a
 *.elf
-*.d
 *.bin
+*.d
 *.srec
 *.syms
 *.map
 *.timestamp
-*.a

@@ -2,26 +2,20 @@
 
 /** Network setting **/
 
-#define USE_DHCP				(1)					/* Select  0(static configuration) or 1(use DHCP) */
+#define USE_DHCP				(0)					/* Select  0(static configuration) or 1(use DHCP) */
 #if (USE_DHCP == 0)
-	#define IP_ADDRESS			("192.168.0.2")		/* IP address */
-	#define SUBNET_MASK			("255.255.255.0")	/* Subnet mask */
-	#define DEFAULT_GATEWAY		("192.168.0.3")		/* Default gateway */
+//	#define IP_ADDRESS			("192.168.10.100")
+//	#define SUBNET_MASK			("255.255.255.0")
+//	#define DEFAULT_GATEWAY		("192.168.10.1")
+	#define IP_ADDRESS			("192.168.43.235")
+	#define SUBNET_MASK			("255.255.255.0")
+	#define DEFAULT_GATEWAY		("192.168.43.1")
+	#define SERVER_ADDRESS 		("192.168.43.230")
+	#define SERVER_PORT 8000
 #endif
 
 #define NETWORK_TYPE			(1)					/* Select  0(EthernetInterface) or 1(GR_PEACH_WlanBP3595) */
 #if (NETWORK_TYPE == 1)
-	#define WLAN_SSID			("SSIDofYourAP")	/* SSID */
-	#define WLAN_PSK			("PSKofYourAP")		/* PSK(Pre-Shared Key) */
-
-//	#define WLAN_SSID			("ERTL_GLOBAL")		/* SSID */
-//	#define WLAN_PSK			("ertl__toppers")	/* PSK(Pre-Shared Key) */
-
-//	#define WLAN_SSID			("RX501NC_0832")	/* SSID */
-//	#define WLAN_PSK			("50220988")		/* PSK(Pre-Shared Key) */
-
-//	#define WLAN_SSID			("planex-2.4-ea118c")	/* SSID */
-//	#define WLAN_PSK			("12345678")		/* PSK(Pre-Shared Key) */
 
 	#define WLAN_SECURITY		NSAPI_SECURITY_WPA2	/* NSAPI_SECURITY_NONE, NSAPI_SECURITY_WEP, NSAPI_SECURITY_WPA or NSAPI_SECURITY_WPA2 */
 #endif
@@ -41,4 +35,17 @@
 /** SD card spi channel setting **/
 
 #define SD_SPICH			(2)
+
+/** WiFi settings **/
+/** Milkcocoa settings **/
+#define WLAN_SSID             ("aterm-1c08e0-g")                // SSID
+#define WLAN_PSK              ("493689785890f")                 // PSK(Pre-Shared Key)
+
+/** Milkcocoa settings **/
+//#define MILKCOCOA_APP_ID        "postizpayuc0"
+//#define MILKCOCOA_DATASTORE     "zumo"
+//#define MILKCOCOA_SERVERPORT    1883
+//const char MQTT_SERVER[] = MILKCOCOA_APP_ID ".mlkcca.com";
+//const char MQTT_CLIENTID[] = __TIME__ MILKCOCOA_APP_ID;
+
 /*****************************/
